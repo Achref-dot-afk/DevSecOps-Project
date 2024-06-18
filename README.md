@@ -59,3 +59,6 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
+Now build it using:
+'''
+docker build --build-arg TMDB_V3_API_KEY=<your-api-key> -t netflix .
