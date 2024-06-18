@@ -49,21 +49,21 @@ pipeline{
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build --build-arg TMDB_V3_API_KEY=d61049e1b85629d8d978601abae42eb4 -t netflix ."
-                       sh "docker tag netflix achref2h/netflix:latest "
-                       sh "docker push achref2h/netflix:latest "
+                       sh "docker build --build-arg TMDB_V3_API_KEY=YOUR_KEY -t netflix ."
+                       sh "docker tag netflix YOUR_TAG/netflix:latest "
+                       sh "docker push YOUR_TAG/netflix:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image achref2h/netflix:latest > trivyimage.txt" 
+                sh "trivy image YOUR_TAG/netflix:latest > trivyimage.txt" 
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d -p 8081:80 achref2h/netflix:latest'
+                sh 'docker run -d -p 8081:80 YOUR_TAG/netflix:latest'
             }
         }
     }
@@ -74,7 +74,7 @@ pipeline{
             body: "Project: ${env.JOB_NAME}<br/>" +
                 "Build Number: ${env.BUILD_NUMBER}<br/>" +
                 "URL: ${env.BUILD_URL}<br/>",
-            to: 'achrefh1bli22@gmail.com',                           
+            to: 'YOUR_EMAIL',                           
             attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
     }
