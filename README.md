@@ -58,6 +58,7 @@ RUN rm -rf ./*
 COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
 '''
 
 Now build it using:
