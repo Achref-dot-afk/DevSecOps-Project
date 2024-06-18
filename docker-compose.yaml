@@ -1,0 +1,54 @@
+version: "3.8"
+
+networks:
+  customNetwork:
+    external: true
+
+volumes:
+  jenkins_data:
+    external: true
+  sonarqube_extensions:
+
+services:
+  customjenkins:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks: 
+      - customNetwork
+    container_name: customjenkins
+
+  sonarqube:
+    image: sonarqube:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    networks:
+      - customNetwork
+    container_name: sonarqube
+
+
+  prometheus:
+    image: prom/prometheus:v2.30.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - customNetwork
+    container_name: prometheus
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - customNetwork
+    container_name: grafana

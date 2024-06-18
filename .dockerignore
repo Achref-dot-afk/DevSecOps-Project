@@ -1,0 +1,6 @@
+.*
+build
+node_modules
+jenkins
+prometheus
+docker-compose.yaml
