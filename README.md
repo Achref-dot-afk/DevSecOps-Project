@@ -2,7 +2,7 @@
 
 **Note:** This project i took from **cloud champ** youtube channel and i used it for learning purposes and changed certain things in the configuration as fit for my local work environment, you can find his channel below.
 **https://www.youtube.com/@cloudchamp?**
-
+ 
 ## Introduction
 In today's fast-paced development environment, integrating security into the DevOps pipeline (DevSecOps) has become crucial. This ensures that security is a shared responsibility throughout the IT lifecycle. This document provides a detailed guide on setting up a fully automated DevSecOps CI/CD pipeline using Jenkins, Trivy, SonarQube, Docker, Prometheus, and Grafana.
 
